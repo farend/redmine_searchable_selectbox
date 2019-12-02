@@ -10,7 +10,7 @@ $(function() {
   replaceSelect2();
 
   // Supports change of select box by filter function
-  if ($('#query_form_with_buttons').length || $('form#query-form').length) {
+  if ($('#query_form_with_buttons').length || $('form#query-form').length || $('form#query_form').length) {
     var oldAddFilter = window.addFilter;
     window.addFilter = function(field, operator, values){
       oldAddFilter(field, operator, values);
