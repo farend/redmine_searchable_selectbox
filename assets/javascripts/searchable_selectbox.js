@@ -1,16 +1,16 @@
 // Replace with select2 when the HTTP status of ajax request is a success.
 // (by pure jquery)
-$(document).ajaxSuccess(function() { console.log('ajaxSuccess');replaceSelect2() });
+$(document).ajaxSuccess(function() { replaceSelect2() });
 // Replace with select2 when the HTTP status of data-remote request is a success.
 // (by rails-ujs)
-$(document).on('ajax:success', function() { console.log('ajax:success');replaceSelect2() });
+$(document).on('ajax:success', function() { replaceSelect2() });
 
 $(function() {
   // Replace with select2 when loading page.
   replaceSelect2();
 
   // Supports change of select box by filter function
-  if ($('#query_form_with_buttons').length > 0 || $('form#query-form').length > 0) {
+  if ($('#query_form_with_buttons').length || $('form#query-form').length) {
     var oldAddFilter = window.addFilter;
     window.addFilter = function(field, operator, values){
       oldAddFilter(field, operator, values);
@@ -37,9 +37,9 @@ function replaceSelect2() {
     return;
   } else {
     var selectInTabular = $('.tabular select:not([multiple]):not(.select2-hidden-accessible)');
-    if (selectInTabular.length > 0) { selectInTabular.select2({ width: '85%' }); }
+    if (selectInTabular.length) { selectInTabular.select2({ width: '85%' }); }
 
     var other = $('select:not([multiple]):not(.select2-hidden-accessible)');
-    if (other.length > 0) { other.select2(); }
+    if (other.length) { other.select2(); }
   }
 }
