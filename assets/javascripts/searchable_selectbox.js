@@ -1,8 +1,15 @@
-$(document).ajaxSuccess(function() { replaceSelect2() });
-$(document).on('ajax:success', function() { replaceSelect2() });
+// Replace with select2 when the HTTP status of ajax request is a success.
+// (by pure jquery)
+$(document).ajaxSuccess(function() { console.log('ajaxSuccess');replaceSelect2() });
+// Replace with select2 when the HTTP status of data-remote request is a success.
+// (by rails-ujs)
+$(document).on('ajax:success', function() { console.log('ajax:success');replaceSelect2() });
+
 $(function() {
+  // Replace with select2 when loading page.
   replaceSelect2();
 
+  // Supports change of select box by filter function
   if ($('#query_form_with_buttons').length > 0 || $('form#query-form').length > 0) {
     var oldAddFilter = window.addFilter;
     window.addFilter = function(field, operator, values){
