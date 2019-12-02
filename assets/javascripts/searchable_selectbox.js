@@ -3,7 +3,7 @@ $(document).on('ajax:success', function() { replaceSelect2() });
 $(function() {
   replaceSelect2();
 
-  if ($('#query_form_with_buttons').length > 0) {
+  if ($('#query_form_with_buttons').length > 0 || $('form#query-form').length > 0) {
     var oldAddFilter = window.addFilter;
     window.addFilter = function(field, operator, values){
       oldAddFilter(field, operator, values);
