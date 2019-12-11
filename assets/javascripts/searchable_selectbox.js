@@ -9,6 +9,15 @@ $(function() {
   // Replace with select2 when loading page.
   replaceSelect2();
 
+  // Fix Select2 search broken inside jQuery UI modal Dialog( https://github.com/select2/select2/issues/1246 )
+  if ($.ui && $.ui.dialog && $.ui.dialog.prototype._allowInteraction) {
+    var ui_dialog_interaction = $.ui.dialog.prototype._allowInteraction;
+    $.ui.dialog.prototype._allowInteraction = function(e) {
+      if ($( e.target ).closest('.select2-dropdown').length) { return true; }
+      return ui_dialog_interaction.apply(this, arguments);
+    };
+  };
+
   // Supports change of select box by filter function
   if ($('#query_form_with_buttons').length || $('form#query-form').length || $('form#query_form').length) {
     var oldAddFilter = window.addFilter;
