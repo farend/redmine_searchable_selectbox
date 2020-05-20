@@ -50,5 +50,8 @@ function replaceSelect2() {
 
     var other = $('select:not([multiple]):not(.select2-hidden-accessible)');
     if (other.length) { other.select2(); }
+
+    var excludedSelect = $('table.list td>select');
+    if (excludedSelect.length) { excludedSelect.select2('destroy'); }
   }
 }
