@@ -23,7 +23,7 @@ $(function() {
     var oldAddFilter = window.addFilter;
     window.addFilter = function(field, operator, values){
       oldAddFilter(field, operator, values);
-      $('#filters-table select:not([multiple]):not(.select2-hidden-accessible)').select2();
+      $('#filters-table select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)').select2();
       $('#select2-add_filter_select-container.select2-selection__rendered').text('');
     }
 
@@ -45,11 +45,11 @@ function replaceSelect2() {
   if ($('body').hasClass('controller-workflows')) {
     return;
   } else {
-    var selectInTabular = $('.tabular select:not([multiple]):not(.select2-hidden-accessible)');
-    if (selectInTabular.length) { selectInTabular.select2({ width: '85%' }); }
+    var selectInTabular = $('.tabular select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
+    if (selectInTabular.length) { selectInTabular.select2({ width: '85%' }).on('select2:select', function(){Rails.fire($(this)[0], 'change')}); }
 
-    var other = $('select:not([multiple]):not(.select2-hidden-accessible)');
-    if (other.length) { other.select2(); }
+    var other = $('select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
+    if (other.length) { other.select2().on('select2:select', function(){Rails.fire($(this)[0], 'change')}); }
 
     var excludedSelect = $('table.list td>select');
     if (excludedSelect.length) { excludedSelect.select2('destroy'); }
