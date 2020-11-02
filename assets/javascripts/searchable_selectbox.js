@@ -37,6 +37,15 @@ $(function() {
       }
     }
   }
+
+  // Changed for a change event to occur when change a value in #issue_assigned_to_id.
+  // https://github.com/ishikawa999/redmine_searchable_selectbox/issues/6
+  $('form#issue-form .assign-to-me-link').click(function(event){
+    event.preventDefault();
+    var element = $(event.target);
+    $('#issue_assigned_to_id').val(element.data('id')).change();
+    element.hide();
+  });
 });
 
 function replaceSelect2() {
