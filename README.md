@@ -9,7 +9,7 @@ Replace Redmine selectbox with [Select2 4.0.12](https://select2.org/).
 
 ```console
 $ cd /your/path/redmine
-$ git clone https://github.com/ishikawa999/redmine_searchable_selectbox.git plugins/redmine_searchable_selectbox
+$ git clone https://github.com/farend/redmine_searchable_selectbox.git plugins/redmine_searchable_selectbox
 $ # Restart redmine
 ```
 
@@ -20,3 +20,7 @@ $ # Restart redmine
 
 * 2: New issue  
 <kbd><img src="https://github.com/ishikawa999/redmine_searchable_selectbox/blob/images/demo_new_issue.gif" /></kbd>
+
+----
+
+2021/1/21 Transferred ownership of the repository from ishikawa999 to [Far End Technologies Corporation](https://github.com/farend).
