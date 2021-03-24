@@ -45,6 +45,10 @@ fieldset#filters td.values .select2-container--default {
   width: 75%;
   max-width: 300px;
 }
+#add_filter_select + .select2-container,
+#group_by + .select2-container {
+  min-width: 200px;
+}
 
 .select2-results__options::-webkit-scrollbar {
   -webkit-appearance: none;
