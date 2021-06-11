@@ -16,10 +16,10 @@ $ # Restart redmine
 ## Demo
 
 * 1: Issues filter  
-<kbd><img src="https://github.com/ishikawa999/redmine_searchable_selectbox/blob/images/demo_filters.gif" /></kbd>
+<kbd><img src="https://github.com/farend/redmine_searchable_selectbox/blob/images/demo_filters.gif" /></kbd>
 
 * 2: New issue  
-<kbd><img src="https://github.com/ishikawa999/redmine_searchable_selectbox/blob/images/demo_new_issue.gif" /></kbd>
+<kbd><img src="https://github.com/farend/redmine_searchable_selectbox/blob/images/demo_new_issue.gif" /></kbd>
 
 ----
 
