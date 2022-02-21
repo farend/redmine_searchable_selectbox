@@ -1,6 +1,5 @@
-require 'redmine'
-require 'searchable_selectbox/hook_listener'
-require 'searchable_selectbox/patches/my_helper_patch'
+require File.expand_path('../lib/searchable_selectbox/hook_listener', __FILE__)
+require File.expand_path('../lib/searchable_selectbox/patches/my_helper_patch', __FILE__)
 
 Redmine::Plugin.register :redmine_searchable_selectbox do
   name 'Redmine Searchable Selectbox'
