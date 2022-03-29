@@ -4,7 +4,7 @@ require File.expand_path('../lib/searchable_selectbox/patches/my_helper_patch', 
 Redmine::Plugin.register :redmine_searchable_selectbox do
   name 'Redmine Searchable Selectbox'
   description "This plugin changes Redmine's selectbox searchable."
-  version '0.1.7'
+  version '0.1.8'
 
   settings default: {'enabled' => 1}, partial: 'settings/searchable_selectbox_settings'
 end
