@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_searchable_selectbox do
 end
 
 Rails.configuration.to_prepare do
-  unless MyHelper.included_modules.include?(MyHelperPatch)
-    MyHelper.prepend(MyHelperPatch)
+  unless MyHelper.included_modules.include?(SearchableSelectbox::Patches::MyHelperPatch)
+    MyHelper.prepend(SearchableSelectbox::Patches::MyHelperPatch)
   end
 end
