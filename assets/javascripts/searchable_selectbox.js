@@ -90,6 +90,14 @@ function replaceSelect2() {
     if (excludedSelect.length) {
       excludedSelect.select2('destroy');
     }
+
+    /* Enable select2 for list and enumerations Custom Fields formats */
+    const customFields = $('select.enumeration_cf, select.list_cf');
+    if (customFields.length) {
+      customFields.select2().on('select2:select', function() {
+        retriggerChangeIfNativeEventExists($(this));
+      });
+    }
   }
 }
 
