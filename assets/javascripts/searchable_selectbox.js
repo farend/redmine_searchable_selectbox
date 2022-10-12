@@ -48,7 +48,7 @@ $(function() {
     var oldAddFilter = window.addFilter;
     window.addFilter = function(field, operator, values){
       oldAddFilter(field, operator, values);
-      $('#filters-table select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)').select2();
+      $('#filters-table select:not([data-remote]):not(.select2-hidden-accessible)'+selectorForMultipleSelectbox()).select2();
       $('#select2-add_filter_select-container.select2-selection__rendered').text('');
     }
 
@@ -56,7 +56,11 @@ $(function() {
     window.toggleMultiSelect = function(el){
       oldToggleMultiSelect(el);
       if (el.attr('multiple')) {
-        el.select2('destroy');
+        if (window.enabledMultipleSelectboxSearchable === true) {
+          el.select2();
+        } else {
+          el.select2('destroy');
+        }
       } else {
         el.select2();
       }
@@ -70,7 +74,7 @@ function replaceSelect2() {
   if ($('body').hasClass('controller-workflows')) {
     return;
   } else {
-    var selectInTabular = $('.tabular .splitcontent select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
+    var selectInTabular = $('.tabular .splitcontent select:not([data-remote]):not(.select2-hidden-accessible)'+selectorForMultipleSelectbox());
     if (selectInTabular.length) {
       selectInTabular.select2({
         width: 'style'
@@ -79,7 +83,7 @@ function replaceSelect2() {
       });
     }
 
-    var other = $('select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
+    var other = $('select:not([data-remote]):not(.select2-hidden-accessible)'+selectorForMultipleSelectbox());
     if (other.length) {
       other.select2().on('select2:select', function() {
         retriggerChangeIfNativeEventExists($(this));
@@ -89,14 +93,6 @@ function replaceSelect2() {
     var excludedSelect = $('table.list td>select');
     if (excludedSelect.length) {
       excludedSelect.select2('destroy');
-    }
-
-    /* Enable select2 for list and enumerations Custom Fields formats */
-    const customFields = $('select.enumeration_cf, select.list_cf');
-    if (customFields.length) {
-      customFields.select2().on('select2:select', function() {
-        retriggerChangeIfNativeEventExists($(this));
-      });
     }
   }
 }
@@ -118,5 +114,13 @@ function retriggerChangeIfNativeEventExists(element) {
   // Rails.fire cannot be used in Redmine 3.x or earlier, so it will not be executed.
   if (element.data('use-add-change-event-listener') && typeof Rails != 'undefined') {
     Rails.fire(element[0], 'change')
+  }
+}
+
+function selectorForMultipleSelectbox() {
+  if (window.enabledMultipleSelectboxSearchable === true) {
+    return ':not(.query-columns [multiple])'
+  } else {
+    return ':not([multiple])'
   }
 }

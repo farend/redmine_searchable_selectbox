@@ -1,4 +1,9 @@
 <p>
-    <%= label_tag('settings[enabled]', I18n.t(:label_enable_seachable_selectbox)) %>
-    <%= check_box_tag('settings[enabled]', 1, settings['enabled']) %>
+  <%= label_tag('settings[enabled]', I18n.t(:label_enable_seachable_selectbox)) %>
+  <%= check_box_tag('settings[enabled]', 1, settings['enabled']) %>
+</p>
+<p>
+  <%= label_tag('settings[enabled_multiple_selectbox]', I18n.t(:label_enable_multiple_selectbox)) %>
+  <%= hidden_field_tag 'settings[enabled_multiple_selectbox]', 0, class: 'enabled_multiple_selectbox' %>
+  <%= check_box_tag('settings[enabled_multiple_selectbox]', 1, Setting.plugin_redmine_searchable_selectbox['enabled_multiple_selectbox'].to_s == '1', class: 'enabled_multiple_selectbox') %>
 </p>

@@ -6,7 +6,7 @@ Redmine::Plugin.register :redmine_searchable_selectbox do
   description "This plugin changes Redmine's selectbox searchable."
   version '0.1.10'
 
-  settings default: {'enabled' => 1}, partial: 'settings/searchable_selectbox_settings'
+  settings default: {'enabled' => 1, 'enabled_multiple_selectbox' => 1}, partial: 'settings/searchable_selectbox_settings'
 end
 
 Rails.configuration.to_prepare do
