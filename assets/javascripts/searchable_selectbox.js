@@ -34,6 +34,8 @@ $(function() {
 
   initAssignToMeLink();
 
+  observeHiidenSelect();
+
   // Fix Select2 search broken inside jQuery UI modal Dialog( https://github.com/select2/select2/issues/1246 )
   if ($.ui && $.ui.dialog && $.ui.dialog.prototype._allowInteraction) {
     var ui_dialog_interaction = $.ui.dialog.prototype._allowInteraction;
@@ -111,4 +113,26 @@ function retriggerChangeIfNativeEventExists(element) {
   if (element.data('use-add-change-event-listener') && typeof Rails != 'undefined') {
     Rails.fire(element[0], 'change')
   }
+}
+
+function observeHiidenSelect() {
+  const $targetNode = $('select.select2-hidden-accessible');
+  const config = { attributes: true, childList: false, subtree: false };
+
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'style'){
+        const targetDisplayValue = window.getComputedStyle(mutation.target).display;
+        $(mutation.target).next('span.select2').css({display: targetDisplayValue === 'block' ? 'inline-block' : targetDisplayValue});
+      }
+    });    
+  });
+
+  $targetNode.each(function(_, $target) {
+    const targetDisplayValue = window.getComputedStyle($target).display;
+    if (targetDisplayValue === 'none') {
+      $($target).next('span.select2').css({display: targetDisplayValue});
+      observer.observe($target, config);
+    }
+  });
 }
