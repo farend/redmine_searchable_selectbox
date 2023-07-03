@@ -3,6 +3,7 @@
 $(document).ajaxSuccess(function() {
   replaceSelect2();
   initAssignToMeLink();
+  restartObserver();
 });
 
 // Replace with select2 when the HTTP status of data-remote request is a success.
@@ -10,6 +11,7 @@ $(document).ajaxSuccess(function() {
 $(document).on('ajax:success', function() {
   replaceSelect2();
   initAssignToMeLink();
+  restartObserver();
 });
 
 // Fix a problem with focus not working in Redmine 5.0 or later.
@@ -31,8 +33,8 @@ EventTarget.prototype.addEventListener = function(type, listener, options) {
 $(function() {
   // Replace with select2 when loading page.
   replaceSelect2();
-
   initAssignToMeLink();
+  observeHidenSelect();
 
   // Fix Select2 search broken inside jQuery UI modal Dialog( https://github.com/select2/select2/issues/1246 )
   if ($.ui && $.ui.dialog && $.ui.dialog.prototype._allowInteraction) {
@@ -111,4 +113,31 @@ function retriggerChangeIfNativeEventExists(element) {
   if (element.data('use-add-change-event-listener') && typeof Rails != 'undefined') {
     Rails.fire(element[0], 'change')
   }
+}
+
+const observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    if (mutation.attributeName === 'style'){
+      const targetDisplayValue = window.getComputedStyle(mutation.target).display;
+      $(mutation.target).next('span.select2').css({display: targetDisplayValue === 'block' ? 'inline-block' : targetDisplayValue});
+    }
+  });
+});
+
+function observeHidenSelect() {
+  const $targetNode = $('select.select2-hidden-accessible');
+  const config = { attributes: true, childList: false, subtree: false };
+
+  $targetNode.each(function(_, $target) {
+    const targetDisplayValue = $target.style.display;
+    if (targetDisplayValue === 'none') {
+      $($target).next('span.select2').css({display: targetDisplayValue});
+      observer.observe($target, config);
+    }
+  });
+}
+
+function restartObserver() {
+  observer.disconnect();
+  observeHidenSelect();
 }
