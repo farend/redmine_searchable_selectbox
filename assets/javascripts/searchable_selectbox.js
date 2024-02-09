@@ -67,34 +67,35 @@ $(function() {
 function replaceSelect2() {
   // TODO: Need to support replace of select according to the click event.
   // Do not replace it with select2 until it corresponds.
+  // multiselection doesn't work in worflow modification
+  // so remove minus and plus, yes it's bad
   if ($('body').hasClass('controller-workflows')) {
-    return;
+    $('.toggle-multiselect').remove();
+  }
+  if ($('#template_area').length) {
+    // This code is for the `Support Built-In / Custom Fields` feature of the redmine_issue_templates plugin.
+    var selectInTabular = $('.tabular .splitcontent select:not([multiple]):not([data-remote])');
   } else {
-    if ($('#template_area').length) {
-      // This code is for the `Support Built-In / Custom Fields` feature of the redmine_issue_templates plugin.
-      var selectInTabular = $('.tabular .splitcontent select:not([multiple]):not([data-remote])');
-    } else {
-      var selectInTabular = $('.tabular .splitcontent select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
-    }
-    if (selectInTabular.length) {
-      selectInTabular.select2({
-        width: 'style'
-      }).on('select2:select', function() {
-        retriggerChangeIfNativeEventExists($(this));
-      });
-    }
+    var selectInTabular = $('.tabular .splitcontent select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
+  }
+  if (selectInTabular.length) {
+    selectInTabular.select2({
+      width: 'style'
+    }).on('select2:select', function() {
+      retriggerChangeIfNativeEventExists($(this));
+    });
+  }
 
-    var other = $('select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
-    if (other.length) {
-      other.select2().on('select2:select', function() {
-        retriggerChangeIfNativeEventExists($(this));
-      });
-    }
+  var other = $('select:not([multiple]):not([data-remote]):not(.select2-hidden-accessible)');
+  if (other.length) {
+    other.select2().on('select2:select', function() {
+      retriggerChangeIfNativeEventExists($(this));
+    });
+  }
 
-    var excludedSelect = $('table.list td>select');
-    if (excludedSelect.length) {
-      excludedSelect.select2('destroy');
-    }
+  var excludedSelect = $('table.list td>select');
+  if (excludedSelect.length) {
+    excludedSelect.select2('destroy');
   }
 }
 

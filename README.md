@@ -3,7 +3,7 @@
 This is a plugin for Redmine.
 This plugin changes Redmine's selectbox searchable.
 
-Replace Redmine selectbox with [Select2 4.0.12](https://select2.org/).
+Replace Redmine selectbox with [Select2 4.0.13](https://select2.org/).
 
 ## Install
 
